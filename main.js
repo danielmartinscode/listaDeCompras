@@ -6,6 +6,23 @@ const itensInput = document.getElementById('receber-item')
 const ulItens = document.getElementById('lista-de-itens')
 const ulItensComprados = document.getElementById('itens-comprados')
 
+function atualizaLocalStorage() {
+    localStorage.setItem('listaDeItens', JSON.stringify(listaDeItens))
+}
+
+function carregaLocalStorage(){
+    const listaRecuperada = localStorage.getItem('listaDeItens')
+    if (listaRecuperada){
+        listaDeItens = JSON.parse(listaRecuperada)
+        mostrarItem()
+    } else {
+        listaDeItens = []
+    }
+}
+
+carregaLocalStorage()
+
+
 form.addEventListener('submit', function (evento) {
     evento.preventDefault()
     salvarItem()
@@ -81,6 +98,8 @@ function mostrarItem() {
             mostrarItem()
         })
     })
+
+    atualizaLocalStorage()
 }
 
 function salvarEdicao() {
